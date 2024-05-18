@@ -1,0 +1,22 @@
+
+.tablero {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 15px;
+    margin: 0 auto;
+    padding: 10px;
+    border: 2px solid black;
+    max-width: 340px;
+}
+.contenedorDeCasillas{
+display: grid;
+grid-template-columns: repeat(3,1fr);
+grid-gap: 15px;
+}
+.casilla{
+    border: 2px solid black;
+    width: 100px;
+    height: 100px;
+
+
+}
