@@ -13,22 +13,48 @@
 
 // casilla_1.innerHTML = "x"
 
+//forEach : para cada.
 function movimientoCasillas () { 
     contenedores.forEach((casilla)=> casilla.addEventListener("click", ()=>{
         if (casilla.innerHTML == "") {
             casilla.innerHTML = "✖️"
-        }else{
-            alert("OCUPADO")
+            movimientoPc()
         }
+        if (ganador()){
+            ganador()
+
+        }
+
 
     }))
 }
 function movimientoPc() {
     let contenedoresVacios = contenedores.filter((casilla) => casilla.innerHTML == "")
-    let aleatorio =  Math.floor(Math.random() * );
+    let aleatorio =  Math.floor(Math.random() * contenedoresVacios.length);
+    console.log(aleatorio);
+    if (contenedoresVacios.length > 0) {
+        contenedoresVacios[aleatorio].innerHTML="⭕"
+    }
 }
-
 movimientoCasillas()
+
+function ganador() {
+
+    let posicionesGanadoras = [
+        [0,1,2],[3,4,5],[6,7,8], //filas
+        [0,3,6],[1,4,7],[2,5,8] //columnas
+        ,[0,4,8],[6,4,2]        //diagonales        
+    ]
+    for (const iterar of posicionesGanadoras) {
+        [pos1,pos2,pos3] = iterar
+    if (contenedores[pos1].innerHTML && contenedores[pos1].innerHTML == contenedores[pos2].innerHTML && contenedores[pos1].innerHTML == contenedores[pos3].innerHTML ) {
+        console.log("Entre");           
+        return true
+            
+        }
+    }
+        return false
+}
 
 
 
