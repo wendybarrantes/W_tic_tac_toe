@@ -9,6 +9,8 @@
     let casilla_8 = document.getElementById("casilla_8")
     let casilla_9 = document.getElementById("casilla_9")
     
+    let contadorDeMovimientos =  0 
+
     //creo un arreglo y guardo todas las casillas
     let contenedores = [casilla_1, casilla_2, casilla_3,casilla_4,casilla_5,casilla_6,casilla_7,
         casilla_8, casilla_9]
@@ -23,13 +25,14 @@
     utilizo la propiedad forEach para asignar el evento a cada casilla.
      */
     function movimientoCasillas () { 
-    contenedores.forEach((casilla)=> casilla.addEventListener("click", ()=>{
+        contenedores.forEach((casilla)=> casilla.addEventListener("click", ()=>{
         if (casilla.innerHTML == "") {
             casilla.innerHTML = "✖️"
+            contadorDeMovimientos++
+            console.log("El contador de la X es ",contadorDeMovimientos); 
             movimientoPc()
         }
         if (ganador()){
-            ganador()
 
         }
     }))
@@ -42,10 +45,12 @@
      */
 function movimientoPc() {
     let contenedoresVacios = contenedores.filter((casilla) => casilla.innerHTML == "")
-    let aleatorio =  Math.floor(Math.random() * contenedoresVacios.length);
+    let aleatorio =  Math.floor(Math.random() * contenedoresVacios.length)
     console.log(aleatorio);
     if (contenedoresVacios.length > 0) {
         contenedoresVacios[aleatorio].innerHTML="⭕"
+        contadorDeMovimientos++
+        console.log("El contador de movimientos del pc es de",contadorDeMovimientos)
     }
 }
 movimientoCasillas()
@@ -65,12 +70,20 @@ movimientoCasillas()
     for (const iterar of posicionesGanadoras) {
         [pos1,pos2,pos3] = iterar
     if (contenedores[pos1].innerHTML && contenedores[pos1].innerHTML == contenedores[pos2].innerHTML && contenedores[pos1].innerHTML == contenedores[pos3].innerHTML ) {
-        alert("FELICIDADES, GANASTE!");           
+        alert("GANASTE!");           
         return true
             
         }
     }
         return false
+
+}
+function empate() {
+ if (contadorDeMovimientos == 9 && !ganador()) {
+    alert("Empate")
+    return true
+ }       
+ return false
 }
 
 
