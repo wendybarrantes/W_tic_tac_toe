@@ -34,6 +34,8 @@
         }
         if (ganador()){
 
+        }else{
+            empate()
         }
     }))
 }
@@ -69,15 +71,21 @@ movimientoCasillas()
     ]
     for (const iterar of posicionesGanadoras) {
         [pos1,pos2,pos3] = iterar
-    if (contenedores[pos1].innerHTML && contenedores[pos1].innerHTML == contenedores[pos2].innerHTML && contenedores[pos1].innerHTML == contenedores[pos3].innerHTML ) {
+    if (contenedores[pos1].innerHTML && 
+        contenedores[pos1].innerHTML == contenedores[pos2].innerHTML 
+        && contenedores[pos1].innerHTML == contenedores[pos3].innerHTML ) {
         alert("GANASTE!");           
         return true
-            
         }
     }
         return false
 
 }
+
+/* creo la funcion empate, con la condicion de que si contador de movimietos llega a 9 y no hay un ganador 
+sea un empate. El contador de movimientos es una variable global (o sea, está definida fuera de las funciones)
+esta variable incrementa de uno en uno luego de cada jugada.
+*/
 function empate() {
  if (contadorDeMovimientos == 9 && !ganador()) {
     alert("Empate")
@@ -85,8 +93,3 @@ function empate() {
  }       
  return false
 }
-
-
-
-
-
