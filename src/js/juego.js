@@ -9,7 +9,11 @@
     let casilla_8 = document.getElementById("casilla_8")
     let casilla_9 = document.getElementById("casilla_9")
     
+    let turno = document.getElementById("turno")
     let contadorDeMovimientos =  0 
+
+    let botonR = document.getElementById("botonR")
+
 
     //creo un arreglo y guardo todas las casillas
     let contenedores = [casilla_1, casilla_2, casilla_3,casilla_4,casilla_5,casilla_6,casilla_7,
@@ -26,7 +30,7 @@
      */
     function movimientoCasillas () { 
         contenedores.forEach((casilla)=> casilla.addEventListener("click", ()=>{
-        if (casilla.innerHTML == "") {
+             if (casilla.innerHTML == "") {
             casilla.innerHTML = "✖️"
             contadorDeMovimientos++
             console.log("El contador de la X es ",contadorDeMovimientos); 
@@ -46,14 +50,21 @@
      Este número aleatorio va a ser la posición en la que se va a colocar el circulo. 
      */
 function movimientoPc() {
-    let contenedoresVacios = contenedores.filter((casilla) => casilla.innerHTML == "")
-    let aleatorio =  Math.floor(Math.random() * contenedoresVacios.length)
-    console.log(aleatorio);
-    if (contenedoresVacios.length > 0) {
-        contenedoresVacios[aleatorio].innerHTML="⭕"
-        contadorDeMovimientos++
-        console.log("El contador de movimientos del pc es de",contadorDeMovimientos)
-    }
+    turno.innerHTML = "⭕"
+    setTimeout(() => {
+        let contenedoresVacios = contenedores.filter((casilla) => casilla.innerHTML == "")
+        let aleatorio =  Math.floor(Math.random() * contenedoresVacios.length)
+        console.log(aleatorio);
+        if (contenedoresVacios.length > 0) {
+            contenedoresVacios[aleatorio].innerHTML="⭕"
+            contadorDeMovimientos++
+            console.log("El contador de movimientos del pc es de",contadorDeMovimientos)
+        }
+        if(ganador())
+        turno.innerHTML = "✖️"
+        
+        
+    }, 500);
 }
 movimientoCasillas()
 
@@ -62,6 +73,8 @@ movimientoCasillas()
     utilizo la función For of para recorrer cada pequeño arreglo verificando en cada iteración
     si hay un ganador. 
     */
+
+    let ganadorFigura
     function ganador() {
 
     let posicionesGanadoras = [
@@ -74,14 +87,15 @@ movimientoCasillas()
     if (contenedores[pos1].innerHTML && 
         contenedores[pos1].innerHTML == contenedores[pos2].innerHTML 
         && contenedores[pos1].innerHTML == contenedores[pos3].innerHTML ) {
-        alert("GANASTE!");           
+            ganadorFigura = contenedores[pos1].innerHTML
+            alert("GANASTE!  " + ganadorFigura);  
+            
         return true
         }
     }
         return false
 
 }
-
 /* creo la funcion empate, con la condicion de que si contador de movimietos llega a 9 y no hay un ganador 
 sea un empate. El contador de movimientos es una variable global (o sea, está definida fuera de las funciones)
 esta variable incrementa de uno en uno luego de cada jugada.
@@ -90,6 +104,14 @@ function empate() {
  if (contadorDeMovimientos == 9 && !ganador()) {
     alert("Empate")
     return true
- }       
+ }      
  return false
 }
+botonR.addEventListener( "click", ()=>{
+    contenedores.forEach(borrar=> borrar.innerHTML = "")
+    contadorDeMovimientos = 0
+}
+)
+
+
+
